@@ -137,9 +137,7 @@ public class Control {
 				mejor = matriz[i][3];
 				exp = nombreExp[i];
 			}
-		}
-		System.out.println("Mejor F1-Score: " + exp + "= " + mejor + "\n");
-		
+		} System.out.println("Mejor F1-Score: " + exp + "= " + mejor + "\n");
 	}
 	
 	public static void promedioGlobalMetricas(double [][] matriz) {
@@ -149,9 +147,7 @@ public class Control {
 			double suma = 0;
 			for (int f = 0; f < 4 ; f++) {
 				suma += matriz[f][c];
-			}
-			
-			listaSumas[c] = suma;
+			} listaSumas[c] = suma;
 		}
 		
 		for (int i = 0; i < 4; i++) {
@@ -159,17 +155,45 @@ public class Control {
 		} System.out.println("");
 	}
 	
-	public static Boolean encontrarElemento(String [] lista, String elemento) {
-		// me falta hacerlo
+	public static int indice(String [] nombreExp, String elemento) {
+		int indice = -1;
 		
-		return false;
+		for (int i = 0; i < nombreExp.length; i++) {
+			if (nombreExp[i].equals(elemento)) {
+				indice = i;
+				break;
+			}
+		} return indice;
 	}
 	
+	public static int [][] saberMatriz(String exp, int [][] experimento1, int [][] experimento2, int [][] experimento3, int [][] experimento4) {
+		int [][]matriz = new int[1][1];
+		if (exp.equals("Exp1")) {
+			matriz = experimento1;
+		} else if (exp.equals("Exp2")) {
+			matriz = experimento2;
+		} else if (exp.equals("Exp3")) {
+			matriz = experimento3;
+		} else {
+			matriz = experimento4;
+		} return matriz;
+	}
 	
-	
-	public static void compararExperimentos(String eprimerExp, String segundoExp) {
-		//me falta hacerlo skdjlkds
+	public static void compararExperimentos(String primerExp, String segundoExp, String [] nombreExp, double [][] matriz, int [][] experimento1, int [][] experimento2, int [][] experimento3, int [][] experimento4) {
+		System.out.println("Comparación " + primerExp + " vs " + segundoExp);
+		int x = indice(nombreExp, primerExp); //indice primer experimento
+		int y = indice(nombreExp, segundoExp); //indice segundo experimento
 		
+		int [][]matrizPrimerExp = saberMatriz(primerExp, experimento1, experimento2, experimento3, experimento4);
+		int [][]matrizSegundoExp = saberMatriz(segundoExp, experimento1, experimento2, experimento3, experimento4);
+		
+		System.out.println(primerExp + " TP= " + matrizPrimerExp[0][0] + " FP= " + matrizPrimerExp[0][1] + " TN= " + matrizPrimerExp[1][1] + " FN= " + matrizPrimerExp[1][0]);
+		System.out.println(segundoExp + " TP= " + matrizSegundoExp[0][0] + " FP= " + matrizSegundoExp[0][1] + " TN= " + matrizSegundoExp[1][1] + " FN= " + matrizSegundoExp[1][0] + "\n");
+		
+		System.out.println("Metricas " + primerExp + ": Accuracy = " + matriz[x][0] + " Precision = " + matriz[x][1] + " Recall = " + matriz[x][2] + " F1-Score = " + matriz[x][3]);
+		System.out.println("Metricas " + segundoExp + ": Accuracy = " + matriz[y][0] + " Precision = " + matriz[y][1] + " Recall = " + matriz[y][2] + " F1-Score = " + matriz[y][3] + "\n");
+		
+		//TERMINAR :,VVVVVVVVVVVVVV
 	}
 	
 	public static void main(String[] args) throws IOException {
@@ -179,7 +203,6 @@ public class Control {
 		int [][] experimento2 = new int[2][2];
 		int [][] experimento3 = new int[2][2];
 		int [][] experimento4 = new int[2][2];
-
 		
 		while (lector.hasNextLine()) {
 			String linea = lector.nextLine();
@@ -252,8 +275,8 @@ public class Control {
 					String primerExp = scan.nextLine();
 					System.out.println("Ingrese ID del segundo experimento a comparar: ");
 					String segundoExp = scan.nextLine();
-					
-					
+					System.out.println(" ");
+					compararExperimentos(primerExp, segundoExp, nombreExp, matriz, experimento1, experimento2, experimento3, experimento4);
 					
 				} else if (opcionAdmin == 5) {
 					 /////////////// no se como hacer esta :,v
@@ -281,12 +304,8 @@ public class Control {
 				opcionUsuario = Integer.valueOf(scan.nextLine());
 			}
 		}
-		
-			
 	} while (opcion != 3);	
 	scan.close();
-
-	
 	}
-
+}
 }
