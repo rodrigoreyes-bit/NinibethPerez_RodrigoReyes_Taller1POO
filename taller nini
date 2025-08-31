@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class Control {
 	
 	public static void menuAdmin() {
+		//Imprime el menu del administrador
 		System.out.println("1) Ver matriz completa de métricas");
 		System.out.println("2) Identificar experimento con mejor F1-Score");
 		System.out.println("3) Calcular promedio global de cada métrica");
@@ -21,6 +22,7 @@ public class Control {
 	}
 	
 	public static void menuUsuario() {
+		//Imprime el menu del usuario
 		System.out.println("1) Ver lista de experimentos");
 		System.out.println("2) Mostrar matriz de confusión de un experimento (TP,FP,TN,FN)");
 		System.out.println("3) Ver métricas de un experimento (Accuracy, Precision, Recall, F1)");
@@ -29,7 +31,7 @@ public class Control {
 	}
 	
 	public static void rellenarMatriz(int [][] matriz, int valorReal, int valorPredicho) {
-		//esta funcion rellena la matriz de  cada experimento con los valores TP,FN,TN y FN :3
+		//Esta función rellena la matriz de  cada experimento con los valores TP,FN,TN y FN :3
 		if (valorReal == 1 && valorPredicho == 1) { 
 			//TP
 			matriz[0][0] += 1;
@@ -46,6 +48,7 @@ public class Control {
 	}
 	
 	public static double accuracy(int [][] matriz) {
+		//Esta función calcula el accuracy
 		double tp = matriz[0][0];
 		double fp = matriz[0][1];
 		double tn = matriz[1][1];
@@ -56,6 +59,7 @@ public class Control {
 	}
 	
 	public static double precision(int [][] matriz) {
+		//Esta función calcula la precision
 		double tp = matriz[0][0];
 		double fp = matriz[0][1];
 		
@@ -64,6 +68,7 @@ public class Control {
 	}
 	
 	public static double recall(int [][] matriz) {
+		//Esta función calcula el recall
 		double tp = matriz[0][0];
 		double fn = matriz[1][0];
 		
@@ -72,11 +77,13 @@ public class Control {
 	}
 	
 	public static double f1Score(double precision, double recall) {
+		//Esta función calcula el f1 score
 		double f1Score = 2 * (precision * recall) / (precision + recall);
 		return f1Score;
 	}
 	
 	public static double [] metricas(int [][]experimento) {
+		//Esta función hace una lista con todas las métricas calculadas anteriormente (accuracy, precision, recall, f1Score)
 		double accuracy = accuracy(experimento);
 		double precision = precision(experimento);
 		double recall = recall(experimento);
@@ -87,6 +94,7 @@ public class Control {
 	}
 	
 	public static void verMatrizCompleta (int [][] experimento1, double [] listaExp1, int [][] experimento2, double [] listaExp2, int [][] experimento3, double [] listaExp3, int [][] experimento4, double [] listaExp4) throws IOException {
+		//Imprime la matriz completa de todas las metricas de los experimentos
 		File experimentos = new File("experimentos.txt");
 		Scanner lector = new Scanner(experimentos);
 		System.out.println("ID | Descripción | TP FP TN FN | Accuracy | Precision | Recall | F1");
@@ -105,18 +113,35 @@ public class Control {
 			} else if (id.equals("Exp3")) {
 				System.out.println(id +" | "+ descripcion +" | "+ experimento3[0][0] + " " + experimento3[0][1] + " " + experimento3[1][1] + " " + experimento3[1][0] +" | "+ listaExp3[0] +" | "+ listaExp3[1] +" | "+ listaExp3[2] +" | "+ listaExp3[3]);
 			} else {
-				System.out.println(id +" | "+ descripcion +" | "+ experimento4[0][0] + " " + experimento4[0][1] + " " + experimento4[1][1] + " " + experimento4[1][0] +" | "+ listaExp4[0] +" | "+ listaExp4[1] +" | "+ listaExp4[2] +" | "+ listaExp4[3]);
+				System.out.println(id +" | "+ descripcion +" | "+ experimento4[0][0] + " " + experimento4[0][1] + " " + experimento4[1][1] + " " + experimento4[1][0] +" | "+ listaExp4[0] +" | "+ listaExp4[1] +" | "+ listaExp4[2] +" | "+ listaExp4[3] + "\n");
 			}
-			
-			
 		}
-		
-		
-		
 		lector.close();
 	}
 	
-	//COSO PRINCIPAL -------------------------------------------------
+	public static void hacerMatriz(double [][] matriz, int fila, double [] listaExp) {
+		//Este procedimiento agrega las metricas de un experimento a una matriz (que eventualmente va a tener todas las metricas de todos los exp)
+		for (int j = 0; j < listaExp.length; j++) {
+			matriz[fila][j] = listaExp[j];
+		}
+	}
+	
+	public static void mejorF1Score(double [][]matriz, String [] nombreExp) {
+		//Imprime cual es el mejor f1-score
+		double mejor = 0.0;
+		String exp = "";
+		
+		//f1 score -> matriz[i][3]
+		for (int i = 0; i < matriz.length; i++) {
+			if (matriz[i][3] > mejor) {
+				mejor = matriz[i][3];
+				exp = nombreExp[i];
+			}
+		}
+		System.out.println("Mejor F1-Score: " + exp + "= " + mejor + "\n");
+		
+	}
+	
 	public static void main(String[] args) throws IOException {
 		File predicciones = new File("predicciones.txt");
 		Scanner lector = new Scanner(predicciones);
@@ -157,8 +182,16 @@ public class Control {
 	double [] listaExp2 = metricas(experimento2);
 	double [] listaExp3 = metricas(experimento3);
 	double [] listaExp4 = metricas(experimento4);
-
 	
+	//MATRIZ METRICAS
+	String [] nombreExp = {"Exp1", "Exp2","Exp3","Exp4"};
+	double [][] matriz = new double [4][4]; 
+	hacerMatriz(matriz, 0, listaExp1);
+	hacerMatriz(matriz, 1, listaExp2);
+	hacerMatriz(matriz, 2, listaExp3);
+	hacerMatriz(matriz, 3, listaExp4);
+	
+	//COSO PRINCIPAL -------------------------------------------------
 	int opcion;
 	Scanner scan = new Scanner(System.in);
 	do {
@@ -178,7 +211,7 @@ public class Control {
 					verMatrizCompleta(experimento1, listaExp1, experimento2, listaExp2, experimento3, listaExp3, experimento4, listaExp4);
 					
 				} else if (opcionAdmin == 2) {
-					////////
+					mejorF1Score(matriz, nombreExp);
 					
 				} else if (opcionAdmin == 3) {
 					////////////
@@ -190,8 +223,26 @@ public class Control {
 					 ///////////////
 					 
 				}
-				
+				menuAdmin();
 				opcionAdmin = Integer.valueOf(scan.nextLine());
+			}
+		}
+		
+		if (opcion == 2) {
+			menuUsuario();
+			int opcionUsuario = Integer.valueOf(scan.nextLine());
+			while (opcionUsuario != 5) {
+				if (opcionUsuario == 1) {
+					//
+				} else if (opcionUsuario == 2) {
+					//
+				} else if (opcionUsuario == 3) {
+					//
+				} else if (opcionUsuario == 4) {
+					//
+				}
+				menuUsuario();
+				opcionUsuario = Integer.valueOf(scan.nextLine());
 			}
 		}
 		
