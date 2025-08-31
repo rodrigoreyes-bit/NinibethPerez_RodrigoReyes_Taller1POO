@@ -142,6 +142,36 @@ public class Control {
 		
 	}
 	
+	public static void promedioGlobalMetricas(double [][] matriz) {
+		String [] metricas = {"Accuracy", "Precision", "Recall", "F1-Score"};
+		double [] listaSumas = {0,0,0,0};
+		for (int c = 0; c < 4; c++) {
+			double suma = 0;
+			for (int f = 0; f < 4 ; f++) {
+				suma += matriz[f][c];
+			}
+			
+			listaSumas[c] = suma;
+		}
+		
+		for (int i = 0; i < 4; i++) {
+			System.out.println("Promedio " + metricas[i] + " = " + (listaSumas[i]/4));
+		} System.out.println("");
+	}
+	
+	public static Boolean encontrarElemento(String [] lista, String elemento) {
+		
+		
+		return false;
+	}
+	
+	
+	
+	public static void compararExperimentos(String eprimerExp, String segundoExp) {
+		
+		
+	}
+	
 	public static void main(String[] args) throws IOException {
 		File predicciones = new File("predicciones.txt");
 		Scanner lector = new Scanner(predicciones);
@@ -196,7 +226,7 @@ public class Control {
 	Scanner scan = new Scanner(System.in);
 	do {
 		System.out.println("Bienvenido!!!");
-		System.out.println("MENU PRINCIPAL");
+		System.out.println("-----------MENU PRINCIPAL-----------");
 		System.out.println("1) Admin");
 		System.out.println("2) Usuario");
 		System.out.println("3) Salir");
@@ -214,13 +244,19 @@ public class Control {
 					mejorF1Score(matriz, nombreExp);
 					
 				} else if (opcionAdmin == 3) {
-					////////////
+					promedioGlobalMetricas(matriz);
 					
 				} else if (opcionAdmin == 4) {
-					//////////////// 
+					System.out.println("ID experimentos: Exp1 | Exp2 | Exp3 | Exp4");
+					System.out.println("Ingrese ID del primer experimento a comparar: ");
+					String primerExp = scan.nextLine();
+					System.out.println("Ingrese ID del segundo experimento a comparar: ");
+					String segundoExp = scan.nextLine();
+					
+					
 					
 				} else if (opcionAdmin == 5) {
-					 ///////////////
+					 /////////////// no se como hacer esta :,v
 					 
 				}
 				menuAdmin();
