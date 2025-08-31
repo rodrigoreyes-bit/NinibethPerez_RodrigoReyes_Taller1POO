@@ -160,7 +160,7 @@ public class Control {
 	}
 	
 	public static Boolean encontrarElemento(String [] lista, String elemento) {
-		
+		// me falta hacerlo
 		
 		return false;
 	}
@@ -168,7 +168,7 @@ public class Control {
 	
 	
 	public static void compararExperimentos(String eprimerExp, String segundoExp) {
-		
+		//me falta hacerlo skdjlkds
 		
 	}
 	
