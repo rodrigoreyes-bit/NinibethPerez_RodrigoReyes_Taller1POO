@@ -14,27 +14,31 @@ public class Taller1 {
 		} else {
 			fin = 3;	
 		}
+		
 		return fin;
 	}
 	public static void main(String[] args) throws IOException {
-		File textoexperimentos = new File("C:/Users/Rodrigo/Desktop/Taller1/experimentos.txt");
+		File textoexperimentos = new File("experimentos.txt");
 		Scanner lector1 = new Scanner(textoexperimentos);
-		String[] experimentos = {"","","",""};
-		String[] tipo = {"","","",""};
-		int contador1 = 0;
+		String[] experimentos = {"","","","","","","","","",""};
+		String[] tipo = {"","","","","","","","","",""};
+		int ContadorExperimentos = 0;
 		while(lector1.hasNextLine()) {
 			String lineaexp = lector1.nextLine();
 			String[] splitexp = lineaexp.split(";");
-			experimentos[contador1] = splitexp[0];
-			tipo[contador1] = splitexp[1];
-			contador1 += 1;
+			experimentos[ContadorExperimentos] = splitexp[0];
+			tipo[ContadorExperimentos] = splitexp[1];
+			ContadorExperimentos += 1;
+			
 		}
-		System.out.println(experimentos[3]);
-		System.out.println(tipo[3]);	
+		
+		int CantidadExperimentos = ContadorExperimentos;
+		
 		lector1.close();	
-		File textopredicciones = new File("C:/Users/Rodrigo/Desktop/Taller1/predicciones.txt");
+		File textopredicciones = new File("predicciones.txt");
 		Scanner lector2 = new Scanner(textopredicciones);
-		double[][] matrizprincipal = new double [4][4];
+		double[][] matrizprincipal = new double [CantidadExperimentos][4];
+		
 		while(lector2.hasNextLine()) {
 			String lineapredi = lector2.nextLine();
 			String[] splitpredi = lineapredi.split(";");	
@@ -42,22 +46,28 @@ public class Taller1 {
 			int columnapredi = tipo(Integer.valueOf(splitpredi[1]),Integer.valueOf(splitpredi[2]));
 			matrizprincipal[filapredi][columnapredi] += 1;
 		}
-		File textometricas = new File("C:/Users/Rodrigo/Desktop/Taller1/metricas.txt");
+		
+		File textometricas = new File("metricas.txt");
 		String[] listametricas = {"","","",""};
 		Scanner lector3 = new Scanner(textometricas);
-		int contadormetrico = 0;
+		int ContadorMetricas = 0;
 		while(lector3.hasNextLine()) {
 			String lineametrica = lector3.nextLine();
-			listametricas[contadormetrico] = lineametrica;
-			contadormetrico += 1;
+			listametricas[ContadorMetricas] = lineametrica;
+			ContadorMetricas += 1;
 		}
-		double[][] matrizmetricas = new double[4][4];
-		for(int i = 0;i<= 3; i+=1) {
+		int CantidadMetricas = ContadorMetricas;
+		
+		
+		double[][] matrizmetricas = new double[CantidadExperimentos][4];
+		for(int i = 0;i < CantidadExperimentos; i+=1) {
+			
 			matrizmetricas[i][0] = ((matrizprincipal[i][0] + matrizprincipal[i][2]) / (matrizprincipal[i][0] + matrizprincipal[i][1] + matrizprincipal[i][2] + matrizprincipal[i][3]));
 			matrizmetricas[i][1] = ((matrizprincipal[i][0]) / (matrizprincipal[i][0] + matrizprincipal[i][1]));
 			matrizmetricas[i][2] = ((matrizprincipal[i][0]) / (matrizprincipal[i][0] + matrizprincipal[i][3]));
 			matrizmetricas[i][3] = ( 2 * ((matrizmetricas[i][1] * matrizmetricas[i][2]) / (matrizmetricas[i][1] + matrizmetricas[i][2])));
 		}
+		
 		int opcion = 0;
 		
 		while(Integer.valueOf(opcion) != 3) {
@@ -85,23 +95,23 @@ public class Taller1 {
 					if (Integer.valueOf(opcionadmin) == 1) {
 						System.out.println("ID | Descripción | TP FP TN FN | Accuracy | Precision | Recall | F1");
 						System.out.println("---------------------------------------------------------------------");
-						for(int i = 0;i<= 3; i+=1) {
+						for(int i = 0;i< CantidadExperimentos; i+=1) {
 							System.out.println(experimentos[i] + "/" + tipo[i] + "/" + matrizprincipal[i][0] + "/" + matrizprincipal[i][1]+ "/" + matrizprincipal[i][2] + "/" + matrizprincipal[i][3] + "/" + "/" + matrizmetricas[i][0] + "/" + matrizmetricas[i][1]+ "/" + matrizmetricas[i][2] + "/" + matrizmetricas[i][3]) ;					
 						}
 					}else if (opcionadmin == 2) {
-						double[] listaf1 = {0,0,0,0};			
-						for(int i = 0; i <=3; i += 1) {					
+						double[] listaf1 = {0,0,0,0,0,0,0,0,0,0};			
+						for(int i = 0; i < CantidadExperimentos; i += 1) {					
 							listaf1[i] = matrizmetricas[i][3];				
 						}
 						double mayorf1 = 0;
 								
-						for(int i = 0; i <=3; i += 1) {
+						for(int i = 0; i < CantidadExperimentos; i += 1) {
 							if (mayorf1 < listaf1[i]) {
 								mayorf1 = listaf1[i];
 							}					
 						}
 						int contadorf1 = 0;
-						for(int i = 0; i <=3; i += 1) {
+						for(int i = 0; i < CantidadExperimentos; i += 1) {
 							if (mayorf1 == listaf1[i]) {
 								break;					
 							} else {
@@ -111,14 +121,14 @@ public class Taller1 {
 						System.out.println("El mejor F1 es: " + experimentos[contadorf1] + " " + mayorf1);	
 					}else if (opcionadmin == 3) {
 						
-						double[] promedioparametros = {0,0,0,0};
+						double[] promedioparametros = {0,0,0,0,0,0,0,0,0,0};
 						
-						for(int i = 0;i<=3;i+=1) {
+						for(int i = 0;i< CantidadMetricas;i+=1) {
 							
 							promedioparametros[i] = ((matrizmetricas[0][i] + matrizmetricas[1][i] + matrizmetricas[2][i] + matrizmetricas[3][i]) / 4);
 							
 						}				
-						for(int i = 0;i<=3;i+=1) {					
+						for(int i = 0;i< CantidadMetricas;i+=1) {					
 							System.out.println("Promedio: " + listametricas[i] + " = " + promedioparametros[i]);
 								
 						}
@@ -172,7 +182,7 @@ public class Taller1 {
 							
 							if(opcionusuario == 1) {
 								
-								for(int i = 0; i <=3; i+=1) {
+								for(int i = 0; i < CantidadExperimentos; i+=1) {
 									System.out.println(experimentos[i] + " | " + tipo[i]);
 									
 								}
@@ -190,14 +200,14 @@ public class Taller1 {
 									System.out.println("Ingrese el numero correspondiente al experimento que desea investigar: ");
 									int metusuario = Integer.valueOf(scan.nextLine());
 									
-									for(int i = 0; i <=3; i+=1) {
+									for(int i = 0; i < CantidadMetricas; i+=1) {
 										System.out.println(listametricas[i] + " | " + matrizmetricas [metusuario - 1][i]);
 							}
 
 							}else if (opcionusuario == 4)	{
 								double promedioacu = 0;
 								
-								for(int i = 0;i<=3;i+=1) {
+								for(int i = 0;i< CantidadMetricas;i+=1) {
 									
 									promedioacu += matrizmetricas[i][0];
 								}
@@ -216,6 +226,7 @@ public class Taller1 {
 		}
 		
 		System.out.println("Hasta Pronto!");
+		
 		
 		
 		
