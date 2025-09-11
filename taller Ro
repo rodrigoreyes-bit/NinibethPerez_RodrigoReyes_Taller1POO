@@ -5,8 +5,6 @@
  * Nombre: Ninibeth Pérez Cortés, RUT: 21.787.686-9, Carrera: ICCI | Nombre: Rodrigo Reyes Alfaro, RUT: 22.123.808-7, Carrera: ICCI
  */
 
-
-
 package Taller;
 
 import java.io.BufferedReader;
@@ -14,9 +12,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-
-
-
 
 import java.io.FileReader;
 
@@ -49,13 +44,11 @@ public class Taller1 {
 			String exp = partes[0];
 			listaExperimentos[indice] = exp;
 			indice++;
-		}
-		lector.close();
+		} lector.close();
 	}
 	
 	public static void agregarDescripción(String [] listaDescripción) throws IOException {
-	
-		
+		//Esta función le asigna a cada índice de una lista la descripción de un experimento
 		File arch = new File("experimentos.txt");
 		Scanner lector = new Scanner(arch);
 		
@@ -71,16 +64,14 @@ public class Taller1 {
 	}
 	
 	public static void matrizDeConfusion (int[][] matriz, String[] listaDeExperimentos, int cantidadexp) throws IOException {
-	
-		
+		//Esta funcion declara los índices para poner rellenar la matriz de confusión
 		for(int i = 0; i < cantidadexp; i++) {
 			RellenoMatrizdeConfusion(matriz, listaDeExperimentos[i], i);			
 		}
-
 	}
 	
 	public static void RellenoMatrizdeConfusion(int[][] MatrizRellena,String experimento, int identificador) throws FileNotFoundException {
-		
+		//Esta función rellena la matriz previamente creada
 		File arch = new File("predicciones.txt");
 		Scanner lector = new Scanner(arch);
 		
@@ -107,15 +98,9 @@ public class Taller1 {
 					MatrizRellena[identificador][3] += 1;
 				}
 			}
-			
 		}
-		
 		lector.close();
 	}
-		
-		
-		
-	
 	
 	public static double accuracy(int [][]matriz,int indentificador) {
 		//Esta función calcula el accuracy
@@ -130,7 +115,6 @@ public class Taller1 {
 	
 	public static double precision(int [][] matriz,int indentificador) {
 		//Esta función calcula la precision
-		
 		double tp = matriz[indentificador][0];
 		double fp = matriz[indentificador][1];
 		
@@ -153,6 +137,7 @@ public class Taller1 {
 		return f1Score;
 	}
 	public static void RellenarMatrizDeMetricas(int cantidadDeExperimentos, int[][] MatrizConfusión, double[][] MatrizMetrica) throws IOException {
+		//Esta funcion utl---------------------------------------------------------------------------------------------------------------------------------------------------------
 		for(int i = 0; i < cantidadDeExperimentos; i++){
 
 			double accuracy = accuracy(MatrizConfusión,i);
@@ -163,13 +148,9 @@ public class Taller1 {
 			MatrizMetrica[i][1] = precision;
 			MatrizMetrica[i][2] = recall;
 			MatrizMetrica[i][3] = f1Score;
-
 		}
-		
-	}
-		
-		
-	
+	}	
+
 	public static void verMatrizCompleta (int cantidadDeExperimentos, int[][] MatrizConfusión, String[] listaDescripciones, double[][] MatrizMetrica) throws IOException {
 		//Imprime la matriz completa de todas las metricas de los experimentos
 
@@ -180,7 +161,6 @@ public class Taller1 {
 
 			System.out.println("Exp" + (i + 1) + " | " + listaDescripciones[i] + " | " + MatrizConfusión[i][0] + "  " + MatrizConfusión[i][1] + "  " + MatrizConfusión[i][2] + "  " + MatrizConfusión[i][3] + " | " + MatrizMetrica[i][0] + " | " + MatrizMetrica[i][1] + " | " + MatrizMetrica[i][2] + " | " + MatrizMetrica[i][3]);
 		}
-		
 	}
 	
 	public static void mejorF1Score (double[][] MatrizMetricas, int cantidadExperimentos) throws IOException {
@@ -206,8 +186,6 @@ public class Taller1 {
 		double sumaF1 = 0;
 		
 		for (int i = 0; i < CantidadExperimentos; i++) {
-			
-
 			sumaAccuracy += MatrizMetricas[i][0];
 			sumaPrecision += MatrizMetricas[i][1];
 			sumaRecall += MatrizMetricas[i][2];
@@ -221,8 +199,6 @@ public class Taller1 {
 	
 
 	public static void compararExperimentos(int exp1, int exp2, double[][] MatrizMetricas) throws IOException {
-		
-	
 
 		double estadisticas1 = (MatrizMetricas[exp1][0] + MatrizMetricas[exp1][1] + MatrizMetricas[exp1][2]);
 		double estadisticas2 = (MatrizMetricas[exp2][0] + MatrizMetricas[exp2][1] + MatrizMetricas[exp2][2]);
@@ -241,8 +217,6 @@ public class Taller1 {
 		}
 	}
 		
-		
-	
 	public static void listaDeExperimentos(String [] listaExperimentos) {
 		int indice = 0;
 		for(String exp : listaExperimentos) {
@@ -282,10 +256,7 @@ public class Taller1 {
             System.out.println(linea);
         }
         csv.close();
-		
-		
-		
-		
+
 	}
 	
 	public static void main(String[] args) throws IOException {
@@ -297,7 +268,6 @@ public class Taller1 {
 		
 		int [][] MatrizDeConfusión = new int[cantExp()][4];
 		double[][] MatrizDeMetricas = new double[cantExp()][4];
-		
 		
 		matrizDeConfusion(MatrizDeConfusión, listaExperimentosRellena, cantExp());
 		RellenarMatrizDeMetricas(cantExp(), MatrizDeConfusión, MatrizDeMetricas);
