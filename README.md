@@ -7,7 +7,7 @@ II Semestre - 2025 ITI - ICCI
 
 👨‍💻 Ayudantes
 - Daniel Durán García  
-- Nicolás Rojas Bustos  
+- Nicolás Rojas Bustos 
 
 ---
 
