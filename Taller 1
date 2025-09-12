@@ -64,16 +64,17 @@ public class Taller1_2 {
 	}
 	
 	public static void matrizDeConfusion (int[][] matriz, String[] listaDeExperimentos, int cantidadexp) throws IOException {
-	
+		//Esta funcion recibe los datos que se requieren para poder armar la matriz de confusion, en base a ellos crea un ciclo que permite
+		// que la función (RellenoMatrizDeConfusion) pueda interpretar que datos y experimentos se encuentran para el cálculo
 		
 		for(int i = 0; i < cantidadexp; i++) {
 			RellenoMatrizdeConfusion(matriz, listaDeExperimentos[i], i);			
 		}
-
 	}
 	
 	public static void RellenoMatrizdeConfusion(int[][] MatrizRellena,String experimento, int identificador) throws FileNotFoundException {
-		
+		//En base al indice indicado por matrizDeConfusion, el cual va a tener el esquema expN° abre el archivo predicciones.txt y compara el experimento
+		//con los datos arrojados por el archivo para así poder calcular y añadir a la matriz de confusion los datos de cada métrica
 		File arch = new File("predicciones.txt");
 		Scanner lector = new Scanner(arch);
 		
@@ -205,7 +206,7 @@ public class Taller1_2 {
 	}
 	
 
-	public static void compararExperimentos(int exp1, int exp2, double[][] MatrizMetricas, String [] listaExperimentosRellena) {
+	public static void compararExperimentos(int exp1, int exp2, double[][] MatrizMetricas, String [] listaExperimentosRellena, int [][] MatrizDeConfusión) {
 		
 		//compara ambos experimentos a través del indice de cada uno, imprimiendo los resultados de cada uno
 		String primerExp = listaExperimentosRellena[exp1];
@@ -213,9 +214,9 @@ public class Taller1_2 {
 		
 		System.out.println("Comparación " + primerExp + " vs " + segundoExp);
 		//matriz de confusion
-		//System.out.println("Matriz de confusion:");
-		//System.out.println(primerExp + ": " + "TP = " + matrizExp1[0] + " FP = " + matrizExp1[1] + "\n     " + " TN = " + matrizExp1[2] + " FN = " + matrizExp1[3] + "\n");
-		//System.out.println(segundoExp + ": " + "TP = " + matrizExp2[0] + " FP = " + matrizExp2[1] + "\n     " + " TN = " + matrizExp2[2] + " FN = " + matrizExp2[3] + "\n");
+		System.out.println("Matriz de confusion:");
+		System.out.println(primerExp + ": " + "TP = " + MatrizDeConfusión[exp1][0] + " FP = " + MatrizDeConfusión[exp1][1] + "\n     " + " TN = " + MatrizDeConfusión[exp1][2] + " FN = " + MatrizDeConfusión[exp1][3] + "\n");
+		System.out.println(segundoExp + ": " + "TP = " + MatrizDeConfusión[exp2][0] + " FP = " + MatrizDeConfusión[exp2][1] + "\n     " + " TN = " + MatrizDeConfusión[exp2][2] + " FN = " + MatrizDeConfusión[exp2][3] + "\n");
 
 		//metricas
 		System.out.println("Metricas:");
@@ -295,7 +296,6 @@ public class Taller1_2 {
 		int [][] MatrizDeConfusión = new int[cantExp()][4];
 		double[][] MatrizDeMetricas = new double[cantExp()][4];
 		
-		
 		matrizDeConfusion(MatrizDeConfusión, listaExperimentosRellena, cantExp());
 		RellenarMatrizDeMetricas(cantExp(), MatrizDeConfusión, MatrizDeMetricas);
 	
@@ -334,8 +334,9 @@ public class Taller1_2 {
 						System.out.println("Ingrese número del segundo experimento a comparar: ");
 						int exp2 = Integer.valueOf(scan.nextLine()) - 1;
 						System.out.println(" ");
-						compararExperimentos(exp1, exp2, MatrizDeMetricas, listaExperimentosRellena);
-					
+						compararExperimentos(exp1, exp2, MatrizDeMetricas, listaExperimentosRellena, MatrizDeConfusión);
+						
+						
 						System.out.println("--------------------------------------------------------------------");
 
 					} else if (opcionAdmin == 5) {
@@ -404,4 +405,6 @@ public class Taller1_2 {
 		System.out.println("4) Ver promedio de Accuracy de todos los modelos");
 		System.out.println("5) Volver");
 	}
+		
 }			
+	
