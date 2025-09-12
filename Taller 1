@@ -16,7 +16,7 @@ import java.io.FileReader;
 public class Taller1_2 {
 	
 	public static int cantExp() throws IOException {
-		//esta funcion entrega la cantidad de experimentos que hay en el archivo de experimentos.txt
+		//Esta funcion entrega la cantidad de experimentos que hay en el archivo de experimentos.txt
 		int cantidad = 0;
 		
 		File arch = new File("experimentos.txt");
@@ -31,7 +31,7 @@ public class Taller1_2 {
 	}
 	
 	public static void agregarExp(String [] listaExperimentos) throws IOException {
-		//esta funcion agrega los experimentos de arch experimentos.txt a la lista de experimentos
+		//Este procedimiento agrega los experimentos de arch experimentos.txt a la lista de experimentos
 		File arch = new File("experimentos.txt");
 		Scanner lector = new Scanner(arch);
 		
@@ -47,8 +47,7 @@ public class Taller1_2 {
 	}
 	
 	public static void agregarDescripción(String [] listaDescripción) throws IOException {
-	
-		
+		//Esta procedimiento agrega la descripcion de cada experimento a una lista de descripciones
 		File arch = new File("experimentos.txt");
 		Scanner lector = new Scanner(arch);
 		
@@ -64,7 +63,7 @@ public class Taller1_2 {
 	}
 	
 	public static void matrizDeConfusion (int[][] matriz, String[] listaDeExperimentos, int cantidadexp) throws IOException {
-		//Esta funcion recibe los datos que se requieren para poder armar la matriz de confusion, en base a ellos crea un ciclo que permite
+		//Este procedimiento recibe los datos que se requieren para poder armar la matriz de confusion, en base a ellos crea un ciclo que permite
 		// que la función (RellenoMatrizDeConfusion) pueda interpretar que datos y experimentos se encuentran para el cálculo
 		
 		for(int i = 0; i < cantidadexp; i++) {
@@ -101,7 +100,6 @@ public class Taller1_2 {
 					MatrizRellena[identificador][3] += 1;
 				}
 			}
-			
 		} lector.close();
 	}
 		
@@ -121,7 +119,6 @@ public class Taller1_2 {
 		
 		double tp = matriz[indentificador][0];
 		double fp = matriz[indentificador][1];
-		
 		double precision = tp / (tp + fp);
 		return precision;
 	}
@@ -130,7 +127,6 @@ public class Taller1_2 {
 		//Esta función calcula el recall
 		double tp = matriz[indentificador][0];
 		double fn = matriz[indentificador][3];
-		
 		double recall = tp / (tp + fn) ;
 		return recall;
 	}
@@ -142,6 +138,8 @@ public class Taller1_2 {
 	}
 	public static void RellenarMatrizDeMetricas(int cantidadDeExperimentos, int[][] MatrizConfusión, double[][] MatrizMetrica) throws IOException {
 		for(int i = 0; i < cantidadDeExperimentos; i++){
+			//Este procedimiento rellena una matriz llamada matriz metricas con los datos de accuracy, precision, recall y f1-score
+			//siendo las filas cada experimento y las columnas las métricas
 
 			double accuracy = accuracy(MatrizConfusión,i);
 			double precision = precision(MatrizConfusión,i);
@@ -154,27 +152,22 @@ public class Taller1_2 {
 		}
 	}
 	
-	
 	public static void verMatrizCompleta (int cantidadDeExperimentos, int[][] MatrizConfusión, String[] listaDescripciones, double[][] MatrizMetrica) {
-		//Imprime la matriz completa de todas las metricas de los experimentos
-
+		//Este procedimiento imprime la matriz completa de todas las metricas de los experimentos
 		System.out.println("ID | Descripción | TP FP TN FN | Accuracy | Precision | Recall | F1");
 		System.out.println("--------------------------------------------------------------------");
 		
 		for(int i = 0; i < cantidadDeExperimentos; i++){
-
 			System.out.println("Exp" + (i + 1) + " | " + listaDescripciones[i] + " | " + MatrizConfusión[i][0] + "  " + MatrizConfusión[i][1] + "  " + MatrizConfusión[i][2] + "  " + MatrizConfusión[i][3] + " | " + MatrizMetrica[i][0] + " | " + MatrizMetrica[i][1] + " | " + MatrizMetrica[i][2] + " | " + MatrizMetrica[i][3]);
 		}
-		
 	}
 	
 	public static void mejorF1Score (double[][] MatrizMetricas, int cantidadExperimentos) {
-		//esta lista imprime el mejor f1-Score
+		//Este procedimiento imprime el mejor f1-Score
 		double mejorScore = 0;
 		int mejorExp = 0;
 		
 		for (int i = 0;i < cantidadExperimentos; i++) {
-			
 			double f1Score = MatrizMetricas[i][3];
 			if (f1Score > mejorScore) {
 				mejorScore = f1Score;
@@ -186,39 +179,39 @@ public class Taller1_2 {
 	}
 	
 	public static void promedioGlobalMetricas (double[][] MatrizMetricas, int CantidadExperimentos) {
+		//Este procedimiento calcula e imprime el promedio de cada métrica
 		double sumaAccuracy = 0;
 		double sumaPrecision = 0;
 		double sumaRecall = 0;
 		double sumaF1 = 0;
 		
 		for (int i = 0; i < CantidadExperimentos; i++) {
-			
 			sumaAccuracy += MatrizMetricas[i][0];
 			sumaPrecision += MatrizMetricas[i][1];
 			sumaRecall += MatrizMetricas[i][2];
 			sumaF1 += MatrizMetricas[i][3];
 		}
-		System.out.println("--------------------------------------------------------------------" + "\n");
+		System.out.println("--------------------------------------------------------------------");
 		System.out.println("Promedio Accuracy: " + (sumaAccuracy/4));
 		System.out.println("Promedio Precision: " + (sumaPrecision/4));
 		System.out.println("Promedio Recall: " + (sumaRecall/4));
-		System.out.println("Promedio F1-Score: " + (sumaF1/4) + "\n");
+		System.out.println("Promedio F1-Score: " + (sumaF1/4));
+		System.out.println("--------------------------------------------------------------------" + "\n");
 	}
 	
 
 	public static void compararExperimentos(int exp1, int exp2, double[][] MatrizMetricas, String [] listaExperimentosRellena, int [][] MatrizDeConfusión) {
-		
-		//compara ambos experimentos a través del indice de cada uno, imprimiendo los resultados de cada uno
+		//Compara ambos experimentos a través del indice de cada uno, imprimiendo los resultados de cada uno
 		String primerExp = listaExperimentosRellena[exp1];
 		String segundoExp = listaExperimentosRellena[exp2];
 		
 		System.out.println("Comparación " + primerExp + " vs " + segundoExp);
-		//matriz de confusion
+		//Matriz de confusion
 		System.out.println("Matriz de confusion:");
 		System.out.println(primerExp + ": " + "TP = " + MatrizDeConfusión[exp1][0] + " FP = " + MatrizDeConfusión[exp1][1] + "\n     " + " TN = " + MatrizDeConfusión[exp1][2] + " FN = " + MatrizDeConfusión[exp1][3] + "\n");
 		System.out.println(segundoExp + ": " + "TP = " + MatrizDeConfusión[exp2][0] + " FP = " + MatrizDeConfusión[exp2][1] + "\n     " + " TN = " + MatrizDeConfusión[exp2][2] + " FN = " + MatrizDeConfusión[exp2][3] + "\n");
 
-		//metricas
+		//Metricas
 		System.out.println("Metricas:");
 		System.out.println(primerExp + ": Acc = " + MatrizMetricas[exp1][0] + " | P = " + MatrizMetricas[exp1][1] + " | R = " + MatrizMetricas[exp1][2] + " | F1 = " + MatrizMetricas[exp1][3]);
 		System.out.println(segundoExp + ": Acc = " + MatrizMetricas[exp2][0] + " | P = " + MatrizMetricas[exp2][1] + " | R = " + MatrizMetricas[exp2][2] + " | F1 = " + MatrizMetricas[exp2][3] + "\n");
@@ -244,6 +237,7 @@ public class Taller1_2 {
 	}
 
 	public static void listaDeExperimentos(String [] listaExperimentos, String [] listaDescripciónRellena) {
+		//Este procedimiento imprime la lista de experimentos junto a su descripción 
 		System.out.println("--------------------------------------------------------------------");
 		int indice = 1;
 		for (int i = 0; i < listaExperimentos.length; i++) {
@@ -254,17 +248,17 @@ public class Taller1_2 {
 	}
 	
 	public static void mostrarMatrizDeUnExp(int[][] MatrizConfusión, int opcion) { 
-		
-		
-		System.out.println("Exp" + (opcion) + " : " + "TP = " + MatrizConfusión[opcion][0] + " FP = " + MatrizConfusión[opcion][1] + "\n     " + " TN = " + MatrizConfusión[opcion][2] + " FN = " + MatrizConfusión[opcion][3] + "\n");
+		//Esta funcion, como dice su nombre, muestra la matriz del experimento deseado segun el indice que se le mande (int opcion)
+		System.out.println("Exp" + (opcion + 1) + " : " + "TP = " + MatrizConfusión[opcion][0] + " FP = " + MatrizConfusión[opcion][1] + "\n      " + " TN = " + MatrizConfusión[opcion][2] + " FN = " + MatrizConfusión[opcion][3] + "\n");
 	}
 	
 	public static void mostrarMetricasDeUnExp(double[][] MatrizMetricas, int opcion) throws IOException {
-
-		System.out.println("Exp" + (opcion) + ": Acc = " + MatrizMetricas[opcion][0] + " | P = " + MatrizMetricas[opcion][1] + " | R = " + MatrizMetricas[opcion][2] + " | F1 = " + MatrizMetricas[opcion][3] + "\n");
+		//Esta función muestra las métricas de un solo experimento, a través de la matriz de métricas
+		System.out.println("Exp" + (opcion + 1) + ": Accuracy = " + MatrizMetricas[opcion][0] + " | Precision = " + MatrizMetricas[opcion][1] + " | Recall = " + MatrizMetricas[opcion][2] + " | F1-Score = " + MatrizMetricas[opcion][3] + "\n");
 	}
 	
 	public static void promedioAccuracy(double[][] MatrizMetricas, int CantidadExperimentos) throws IOException {
+		//Este procedimiento calcula el promedio de todos los accuracy de los experimentos
 		double PromedioAcurracy = 0;
 		
 		for(int i = 0;i< CantidadExperimentos;i+=1) {
@@ -405,6 +399,4 @@ public class Taller1_2 {
 		System.out.println("4) Ver promedio de Accuracy de todos los modelos");
 		System.out.println("5) Volver");
 	}
-		
 }			
-	
