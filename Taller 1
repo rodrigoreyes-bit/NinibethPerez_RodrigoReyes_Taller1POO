@@ -3,7 +3,7 @@
  * Nombre: Ninibeth Pérez Cortés, RUT: 21.787.686-9, Carrera: ICCI | Nombre: Rodrigo Reyes Alfaro, RUT: 22.123.808-7, Carrera: ICCI
  * Nombre: Ninibeth Pérez Cortés, RUT: 21.787.686-9, Carrera: ICCI | Nombre: Rodrigo Reyes Alfaro, RUT: 22.123.808-7, Carrera: ICCI
  * Nombre: Ninibeth Pérez Cortés, RUT: 21.787.686-9, Carrera: ICCI | Nombre: Rodrigo Reyes Alfaro, RUT: 22.123.808-7, Carrera: ICCI
- */ 
+ */
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -202,6 +202,7 @@ public class Taller1_2 {
 
 	public static void compararExperimentos(int exp1, int exp2, double[][] MatrizMetricas, String [] listaExperimentosRellena, int [][] MatrizDeConfusión) {
 		//Compara ambos experimentos a través del indice de cada uno, imprimiendo los resultados de cada uno
+		System.out.println("--------------------------------------------------------------------");
 		String primerExp = listaExperimentosRellena[exp1];
 		String segundoExp = listaExperimentosRellena[exp2];
 		
@@ -249,12 +250,18 @@ public class Taller1_2 {
 	
 	public static void mostrarMatrizDeUnExp(int[][] MatrizConfusión, int opcion) { 
 		//Esta funcion, como dice su nombre, muestra la matriz del experimento deseado segun el indice que se le mande (int opcion)
-		System.out.println("Exp" + (opcion + 1) + " : " + "TP = " + MatrizConfusión[opcion][0] + " FP = " + MatrizConfusión[opcion][1] + "\n      " + " TN = " + MatrizConfusión[opcion][2] + " FN = " + MatrizConfusión[opcion][3] + "\n");
+		System.out.println("--------------------------------------------------------------------");
+		System.out.println("Exp" + (opcion + 1) + " : " + "TP = " + MatrizConfusión[opcion][0] + " FP = " + MatrizConfusión[opcion][1] + "\n      " + " TN = " + MatrizConfusión[opcion][2] + " FN = " + MatrizConfusión[opcion][3]);
+		System.out.println("--------------------------------------------------------------------");
+
 	}
 	
 	public static void mostrarMetricasDeUnExp(double[][] MatrizMetricas, int opcion) throws IOException {
 		//Esta función muestra las métricas de un solo experimento, a través de la matriz de métricas
-		System.out.println("Exp" + (opcion + 1) + ": Accuracy = " + MatrizMetricas[opcion][0] + " | Precision = " + MatrizMetricas[opcion][1] + " | Recall = " + MatrizMetricas[opcion][2] + " | F1-Score = " + MatrizMetricas[opcion][3] + "\n");
+		System.out.println("--------------------------------------------------------------------");
+		System.out.println("Exp" + (opcion + 1) + ": Accuracy = " + MatrizMetricas[opcion][0] + " | Precision = " + MatrizMetricas[opcion][1] + " | Recall = " + MatrizMetricas[opcion][2] + " | F1-Score = " + MatrizMetricas[opcion][3]);
+		System.out.println("--------------------------------------------------------------------");
+
 	}
 	
 	public static void promedioAccuracy(double[][] MatrizMetricas, int CantidadExperimentos) throws IOException {
@@ -267,7 +274,10 @@ public class Taller1_2 {
 		}
 		
 		PromedioAcurracy = PromedioAcurracy / 4;
+		System.out.println("--------------------------------------------------------------------");
 		System.out.println("Promedio de Accuracy: " + PromedioAcurracy);
+		System.out.println("--------------------------------------------------------------------");
+
 	}
 	
 	public static void MatrizCSV() throws IOException {
@@ -318,7 +328,6 @@ public class Taller1_2 {
 						
 					} else if (opcionAdmin == 3) {
 						promedioGlobalMetricas(MatrizDeMetricas,cantExp());
-						System.out.println("--------------------------------------------------------------------");
 						
 					} else if (opcionAdmin == 4) {
 						System.out.println("Numero - Experimentos:");
@@ -399,4 +408,4 @@ public class Taller1_2 {
 		System.out.println("4) Ver promedio de Accuracy de todos los modelos");
 		System.out.println("5) Volver");
 	}
-}			
+}	
