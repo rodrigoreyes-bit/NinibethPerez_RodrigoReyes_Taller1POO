@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileReader;
 
-public class Taller2 {
+public class Taller1 {
 	
 	public static int cantExp() throws IOException {
 		//Esta funcion entrega la cantidad de experimentos que hay en el archivo de experimentos.txt
