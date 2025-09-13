@@ -1,4 +1,3 @@
-
 /* Nombre: Ninibeth Pérez Cortés, RUT: 21.787.686-9, Carrera: ICCI | Nombre: Rodrigo Reyes Alfaro, RUT: 22.123.808-7, Carrera: ICCI
  * Nombre: Ninibeth Pérez Cortés, RUT: 21.787.686-9, Carrera: ICCI | Nombre: Rodrigo Reyes Alfaro, RUT: 22.123.808-7, Carrera: ICCI
  * Nombre: Ninibeth Pérez Cortés, RUT: 21.787.686-9, Carrera: ICCI | Nombre: Rodrigo Reyes Alfaro, RUT: 22.123.808-7, Carrera: ICCI
@@ -13,7 +12,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileReader;
 
-public class Taller1 {
+public class Taller2 {
 	
 	public static int cantExp() throws IOException {
 		//Esta funcion entrega la cantidad de experimentos que hay en el archivo de experimentos.txt
@@ -34,7 +33,7 @@ public class Taller1 {
 		//Entrega la cantidad de metricas
 		int cantidad = 0;
 		
-		File arch = new File("experimentos.txt");
+		File arch = new File("metricas.txt");
 		Scanner lector = new Scanner(arch);
 		
 		while (lector.hasNextLine()) {
@@ -341,8 +340,10 @@ public class Taller1 {
 		
 		agregarExp(listaExperimentosRellena);
 		agregarDescripción(listaDescripciónRellena);
+		
 		int [][] MatrizDeConfusión = new int[CantidadExperimentos][4];
 		double[][] MatrizDeMetricas = new double[CantidadExperimentos][CantidadMetricas];
+		
 		matrizDeConfusion(MatrizDeConfusión, listaExperimentosRellena, CantidadExperimentos);
 		RellenarMatrizDeMetricas(CantidadExperimentos, MatrizDeConfusión, MatrizDeMetricas);
 		
