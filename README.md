@@ -20,7 +20,7 @@ II Semestre - 2025 ITI - ICCI
 - `metricas.txt` → Define las métricas a calcular.  
 - `predicciones.txt` → Valores reales y predichos por experimento.  
 - `verificacion_docente_confusiones.csv` → (Extra) Validación docente.  
-- Código taller en Java (`.java`).  
+- Carpeta src → Código taller en Java (`.java`). 
 ---
 
 ✅ Notas
