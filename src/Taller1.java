@@ -18,7 +18,7 @@ public class Taller1 {
 		//Esta funcion entrega la cantidad de experimentos que hay en el archivo de experimentos.txt
 		int cantidad = 0;
 		
-		File arch = new File("experimentos.txt");
+		File arch = new File("NinibethPerez_RodrigoReyes_Taller1POO-main/experimentos.txt");
 		Scanner lector = new Scanner(arch);
 		
 		while (lector.hasNextLine()) {
@@ -33,7 +33,7 @@ public class Taller1 {
 		//Entrega la cantidad de metricas
 		int cantidad = 0;
 		
-		File arch = new File("metricas.txt");
+		File arch = new File("NinibethPerez_RodrigoReyes_Taller1POO-main\\metricas.txt");
 		Scanner lector = new Scanner(arch);
 		
 		while (lector.hasNextLine()) {
@@ -46,7 +46,7 @@ public class Taller1 {
 	
 	public static void agregarExp(String [] listaExperimentos) throws IOException {
 		//Este procedimiento agrega los experimentos de arch experimentos.txt a la lista de experimentos
-		File arch = new File("experimentos.txt");
+		File arch = new File("NinibethPerez_RodrigoReyes_Taller1POO-main/experimentos.txt");
 		Scanner lector = new Scanner(arch);
 		
 		int indice = 0;
@@ -62,7 +62,7 @@ public class Taller1 {
 
 	public static void agregarDescripción(String [] listaDescripción) throws IOException {
 		//Este procedimiento agrega los experimentos de arch experimentos.txt a la lista de experimentos
-		File arch = new File("experimentos.txt");
+		File arch = new File("NinibethPerez_RodrigoReyes_Taller1POO-main/experimentos.txt");
 		Scanner lector = new Scanner(arch);
 		
 		int indice = 0;
@@ -87,7 +87,7 @@ public class Taller1 {
 	public static void RellenoMatrizdeConfusion(int[][] MatrizRellena,String experimento, int identificador) throws FileNotFoundException {
 		//En base al indice indicado por matrizDeConfusion, el cual va a tener el esquema expN° abre el archivo predicciones.txt y compara el experimento
 		//con los datos arrojados por el archivo para así poder calcular y añadir a la matriz de confusion los datos de cada métrica
-		File arch = new File("predicciones.txt");
+		File arch = new File("NinibethPerez_RodrigoReyes_Taller1POO-main/predicciones.txt");
 		Scanner lector = new Scanner(arch);
 		
 		while (lector.hasNextLine()) {
@@ -283,7 +283,7 @@ public class Taller1 {
 	public static void RellenarMatrizCSV(int[][] RellenoMatrizCSV,int[][] MatrizConfusión, int Cantidadexp) throws IOException {
 		//Este procedimiento rellena una nueva matriz a partir de verificacion_docente_confusiones.csv y además hace una comparación
 		//con la matriz de confusión original
-		BufferedReader csv = new BufferedReader(new FileReader("verificacion_docente_confusiones.csv"));
+		BufferedReader csv = new BufferedReader(new FileReader("NinibethPerez_RodrigoReyes_Taller1POO-main/verificacion_docente_confusiones.csv"));
         String linea;
         int contador = 0;
         while ((linea = csv.readLine()) != null) {
