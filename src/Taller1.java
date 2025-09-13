@@ -33,7 +33,7 @@ public class Taller1 {
 		//Entrega la cantidad de metricas
 		int cantidad = 0;
 		
-		File arch = new File("NinibethPerez_RodrigoReyes_Taller1POO-main\\metricas.txt");
+		File arch = new File("NinibethPerez_RodrigoReyes_Taller1POO-main/metricas.txt");
 		Scanner lector = new Scanner(arch);
 		
 		while (lector.hasNextLine()) {
@@ -351,7 +351,7 @@ public class Taller1 {
 		int opcion;
 		Scanner scan = new Scanner(System.in);
 		do {
-			System.out.println("           !!Bienvenido!!");
+			System.out.println("           ¡¡Bienvenido!!");
 			System.out.println("-----------MENU PRINCIPAL-----------");
 			System.out.println("1) Admin");
 			System.out.println("2) Usuario");
@@ -434,7 +434,7 @@ public class Taller1 {
 				}
 			}
 		} while (opcion != 3);	
-		System.out.println("           !!Hasta luego!!");
+		System.out.println("           ¡¡Hasta luego!!");
 		scan.close();
 	}
 	
