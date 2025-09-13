@@ -281,7 +281,7 @@ public class Taller1 {
 		System.out.println("--------------------------------------------------------------------");
 	}
 	
-	public static void RellenarMatrizCSV(int[][] RellenoMatrizCSV,int[][] MatrizConfusión, int Cantidadexp, int Cantidadmetrica) throws IOException {
+	public static void RellenarMatrizCSV(int[][] RellenoMatrizCSV,int[][] MatrizConfusión, int Cantidadexp) throws IOException {
 		//Este procedimiento rellena una nueva matriz a partir de verificacion_docente_confusiones.csv y además hace una comparación
 		//con la matriz de confusión original
 		BufferedReader csv = new BufferedReader(new FileReader("verificacion_docente_confusiones.csv"));
@@ -300,14 +300,16 @@ public class Taller1 {
         mostrarMatriz(MatrizConfusión, 4, "Matriz Confusión:");
         
         boolean comparacion = true;
-        for(int x = 0; x< Cantidadexp; x++) {
-        	for(int y = 0; y< Cantidadexp; y++) {
+        for(int x = 0; x < Cantidadexp; x++) {
+        	for(int y = 0; y < 4; y++) {
         		if (RellenoMatrizCSV[x][y] != MatrizConfusión[x][y]) {
         			comparacion = false;
+        		
+        		
         		}
         	}
         }
-        if(comparacion = true) {
+        if(comparacion == true) {
         	System.out.println("Las Matrices son identicas");
         }else {
         	System.out.println("Las Matrices son diferentes");
@@ -375,10 +377,15 @@ public class Taller1 {
 					} else if (opcionAdmin == 4) {
 						System.out.println("Numero - Experimentos:");
 						mostrarExperimentos(listaExperimentosRellena);
-						System.out.println("Ingrese número del primer experimento a comparar: ");
-						int exp1 = Integer.valueOf(scan.nextLine()) - 1;
-						System.out.println("Ingrese número del segundo experimento a comparar: ");
-						int exp2 = Integer.valueOf(scan.nextLine()) - 1;
+						int exp1;
+						int exp2;
+						do {
+							System.out.println("Ingrese número del primer experimento a comparar: ");
+							exp1 = Integer.valueOf(scan.nextLine()) - 1;
+							System.out.println("Ingrese número del segundo experimento a comparar: ");
+							exp2 = Integer.valueOf(scan.nextLine()) - 1;
+						}while(exp1 < 0 || exp1 > CantidadExperimentos || exp2 < 0 || exp2 > CantidadExperimentos);
+						
 						System.out.println(" ");
 						compararExperimentos(exp1, exp2, MatrizDeMetricas, listaExperimentosRellena, MatrizDeConfusión);
 						System.out.println("--------------------------------------------------------------------");
@@ -386,7 +393,7 @@ public class Taller1 {
 					} else if (opcionAdmin == 5) {
 						
 						int[][] MatrizCsv = new int[CantidadExperimentos][4];
-						RellenarMatrizCSV(MatrizCsv, MatrizDeConfusión, CantidadExperimentos, CantidadMetricas);
+						RellenarMatrizCSV(MatrizCsv, MatrizDeConfusión, CantidadExperimentos);
 					}
 					menuAdmin();
 					opcionAdmin = Integer.valueOf(scan.nextLine());
@@ -402,14 +409,22 @@ public class Taller1 {
 						
 					} else if (opcionUsuario == 2) {
 						mostrarExperimentos(listaExperimentosRellena);
-						System.out.println("Ingrese el número del experimento deseado: ");
-						int numExp = Integer.valueOf(scan.nextLine()) - 1;
+						int numExp;
+						do {
+							System.out.println("Ingrese el número del experimento deseado: ");
+							numExp = Integer.valueOf(scan.nextLine()) - 1;
+						}while(numExp < 0 || numExp > CantidadExperimentos);
 						mostrarMatrizDeUnExp(MatrizDeConfusión, numExp);
+
 						
 					} else if (opcionUsuario == 3) {
 						mostrarExperimentos(listaExperimentosRellena);
-						System.out.println("Ingrese el número del experimento deseado: ");
-						int numExp = Integer.valueOf(scan.nextLine()) - 1;
+						int numExp;
+						do {
+							System.out.println("Ingrese el número del experimento deseado: ");
+							numExp = Integer.valueOf(scan.nextLine()) - 1;
+						}while(numExp < 0 || numExp > CantidadExperimentos);
+						
 						mostrarMetricasDeUnExp(MatrizDeMetricas, numExp);
 						
 					} else if (opcionUsuario == 4) {
