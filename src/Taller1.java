@@ -341,10 +341,8 @@ public class Taller1 {
 		
 		agregarExp(listaExperimentosRellena);
 		agregarDescripción(listaDescripciónRellena);
-		
 		int [][] MatrizDeConfusión = new int[CantidadExperimentos][4];
 		double[][] MatrizDeMetricas = new double[CantidadExperimentos][CantidadMetricas];
-		
 		matrizDeConfusion(MatrizDeConfusión, listaExperimentosRellena, CantidadExperimentos);
 		RellenarMatrizDeMetricas(CantidadExperimentos, MatrizDeConfusión, MatrizDeMetricas);
 		
